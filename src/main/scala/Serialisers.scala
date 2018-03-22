@@ -10,8 +10,8 @@ import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
   include = JsonTypeInfo.As.PROPERTY,
   property = "type")
 @JsonSubTypes(Array(
-  new Type(value = classOf[ProductDetailsSimple], name = "simple"),
-  new Type(value = classOf[ProductDetailsComplex], name = "complex")))
+  new Type(value = classOf[ProductDetailsSimple], name = "ProductDetailsSimple"),
+  new Type(value = classOf[ProductDetailsComplex], name = "ProductDetailsComplex")))
 trait Product
 
 case class ProductDetailsSimple(productId: String, description: String) extends Product
@@ -31,23 +31,27 @@ object Serialisers {
         ProductDetailsSimple(productId = "Some_id", description = "some description"),
         ProductDetailsComplex(productId = "Some_id", description = Map("someKey" -> "somevalue"))))
 
-    val s = jsonDS.writerWithDefaultPrettyPrinter().writeValueAsString(inv)
-    println("Polymorphic Inventory as JSON: " + s)
+    val josn = jsonDS.writerWithDefaultPrettyPrinter().writeValueAsString(inv)
+
+    println("Polymorphic Inventory as JSON: " + josn)
 
     val json =
       """
         |{
-        |  "products" : [ {
-        |    "type" : "simple",
-        |    "productId" : "Some_id",
-        |    "description" : "some description"
-        |  }, {
-        |    "type" : "complex",
-        |    "productId" : "Some_id",
-        |    "description" : {
-        |      "someKey" : "somevalue"
+        |  "products": [
+        |    {
+        |      "type": "ProductDetailsSimple",
+        |      "productId": "Some_id",
+        |      "description": "some description"
+        |    },
+        |    {
+        |      "type": "ProductDetailsComplex",
+        |      "productId": "Some_id",
+        |      "description": {
+        |        "someKey": "somevalue"
+        |      }
         |    }
-        |  } ]
+        |  ]
         |}
       """.stripMargin
 
