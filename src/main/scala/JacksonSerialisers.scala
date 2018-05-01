@@ -20,7 +20,7 @@ case class ProductDetailsComplex(productId: String, description: Map[String, Str
 
 case class PolymorphicInventory(products: List[Product])
 
-object Serialisers {
+object JacksonSerialisers {
 
   val jsonDS: ObjectMapper = (new ObjectMapper() with ScalaObjectMapper).registerModule(DefaultScalaModule)
 
