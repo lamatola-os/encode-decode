@@ -2,7 +2,7 @@ name := "serialisers-deserialisers"
 
 version := "0.1"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.6"
 
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.9.4"
 
@@ -17,3 +17,5 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
 ).map(_ % circeVersion)
+
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
