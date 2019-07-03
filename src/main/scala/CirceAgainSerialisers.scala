@@ -1,9 +1,17 @@
 
 import io.circe._, io.circe.parser._
 
+// https://github.com/circe/circe/pull/375
+
 object CirceAgainSerialisers {
 
   def main(args: Array[String]): Unit = {
+
+    customDecoding
+
+  }
+
+  def stuf = {
 
     val rawFakeJson: String =
       """[
@@ -44,12 +52,48 @@ object CirceAgainSerialisers {
     }
   }
 
-  def d = {
+  def customDecoding = {
+
+    import io.circe.Decoder, io.circe.jawn.decode
+    import cats.instances.either._
+
+    case class Customer(customerName: String, age: Int, active: Boolean)
+
+    implicit val decodeFoo: Decoder[Customer] = Decoder.fromState(
+      for {
+        name <- Decoder.state.decodeField[String]("customerName")
+        age <- Decoder.state.decodeField[Int]("age")
+        active <- Decoder.state.decodeField[Boolean]("active")
+        _ <- Decoder.state.requireEmpty
+      } yield Customer(name, age, active)
+    )
+
     val json =
       """
         {
-          "customerNam"
+          "customerName": "ABC",
+          "age": 10,
+          "active": true
         }
       """.stripMargin
+
+    val decodedCustomer = decode[Customer](json)
+    println(decodedCustomer)
+
+
+    val badJson = decode[Customer](
+      """
+        {
+          "customerName": 1,
+          "age": 10,
+          "active": true
+        }
+      """.stripMargin)
+    badJson match {
+      case Right(r) =>
+        println(r)
+      case Left(l) =>
+        println(l.fillInStackTrace())
+    }
   }
 }

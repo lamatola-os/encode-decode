@@ -2,20 +2,29 @@ name := "serialisers-deserialisers"
 
 version := "0.1"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 
-libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.9.4"
+val JacksonEncoderVersion = "2.9.9"
+val circeVersion = "0.10.0"
 
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.4"
+////
+////
 
-libraryDependencies += "com.fasterxml.jackson.datatype" % "jackson-datatype-jdk8" % "2.9.4"
+libraryDependencies ++= Seq(
+    "com.fasterxml.jackson.core" % "jackson-core" % JacksonEncoderVersion,
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % JacksonEncoderVersion,
+    "com.fasterxml.jackson.datatype" % "jackson-datatype-jdk8" % JacksonEncoderVersion
+)
 
-val circeVersion = "0.9.3"
-
+//
 libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
 ).map(_ % circeVersion)
+
+////
+////
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.7.0-M1"
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)

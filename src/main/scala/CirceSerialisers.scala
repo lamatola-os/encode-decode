@@ -4,6 +4,29 @@ object CirceSerialisers {
 
     import io.circe._, io.circe.generic.auto._, io.circe.parser._, io.circe.syntax._
 
+    case class M(persons: List[Artist])
+    case class Artist(name: String, sex: String)
+
+    val encoded =
+      """
+        |[
+        |    { "name": "Porcupine Tree",
+        |      "genre": "Metal"
+        |    },
+        |    {
+        |      "name": "Marilyn Manson",
+        |      "sex": "Rock"
+        |    }
+        |]
+      """.stripMargin
+
+    val decoded: Either[Error, List[Artist]] = decode[List[Artist]](encoded)
+
+    decoded match {
+      case Right(e) => println("success: " + e)
+      case Left(l) => println("failure: "+ l)
+    }
+
     sealed trait Order
     case class DeliveryOrder(items: Vector[String]) extends Order
     case class InStoreOrder(orderId: Int, price: Option[Double]) extends Order
