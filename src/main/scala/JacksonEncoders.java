@@ -8,7 +8,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class JacksonEncoders {
 
@@ -31,12 +33,30 @@ public class JacksonEncoders {
         }
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
+    static class Order {
+
+        public Optional<Status> order;
+
+        public static class Status {
+            public String status;
+            public LocalDate statusDate;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
         var encoded = encoder.writeValueAsString(new Customer(
                 "upd",
                 LocalDate.now()
         ));
 
         System.out.println(encoded);
+
+        var jsonJust = "{\"order\":{\"status\":\"delivered\",\"statusDate\":\"2019-07-02\"}}";
+        var deccoded = encoder.readValue(jsonJust, Order.class);
+        System.out.println(deccoded.order.map(a -> a.status));
+
+        var jsonNothing = "{\"order\": {}}";
+        var decoded2 = encoder.readValue(jsonNothing, Order.class);
+        System.out.println(decoded2.order.map($ -> $.status));
     }
 }
