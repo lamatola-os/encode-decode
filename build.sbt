@@ -1,4 +1,4 @@
-name := "serialisers-deserialisers"
+name := "encoder-decoder"
 
 version := "0.1"
 
