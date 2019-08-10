@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  */
 public class JacksonEncoderPerf {
 
-    final static List<Customer> orders = IntStream.range(1, 1)
+    final static List<Customer> orders = IntStream.range(1, 100000)
             .mapToObj($ -> new Customer(
                     "upd",
                     "LUYATA",

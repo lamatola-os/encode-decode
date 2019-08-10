@@ -4,7 +4,7 @@ version := "0.1"
 
 scalaVersion := "2.12.8"
 
-val JacksonEncoderVersion = "2.9.9"
+val JacksonEncoderVersion = "2.10.0.pr1"
 val circeVersion = "0.10.0"
 
 ////
