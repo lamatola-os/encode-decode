@@ -14,22 +14,31 @@ import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
   new Type(value = classOf[ProductDetailsComplex], name = "ProductDetailsComplex")))
 trait Product
 
-case class ProductDetailsSimple(productId: String, description: String) extends Product
+//if you use lombok with @Builder you need both @All and @NoArgsConstructor
+case class ProductDetailsSimple(productId: String,
+                                description: String) extends Product
 
-case class ProductDetailsComplex(productId: String, description: Map[String, String]) extends Product
+case class ProductDetailsComplex(productId: String,
+                                 description: Map[String, String]) extends Product
 
 case class PolymorphicInventory(products: List[Product])
 
 object JacksonSerialisers {
 
-  val jsonDS: ObjectMapper = (new ObjectMapper() with ScalaObjectMapper).registerModule(DefaultScalaModule)
+  val jsonDS: ObjectMapper = (new ObjectMapper() with ScalaObjectMapper)
+    .registerModule(DefaultScalaModule)
 
   def main(args: Array[String]): Unit = {
 
     val inv = PolymorphicInventory(
       List(
-        ProductDetailsSimple(productId = "Some_id", description = "some description"),
-        ProductDetailsComplex(productId = "Some_id", description = Map("someKey" -> "somevalue"))))
+        ProductDetailsSimple(
+          productId = "Some_id",
+          description = "some description"),
+        ProductDetailsComplex(
+          productId = "Some_id",
+          description = Map("someKey" -> "somevalue")))
+    )
 
     val josn = jsonDS.writerWithDefaultPrettyPrinter().writeValueAsString(inv)
 

@@ -23,7 +23,7 @@ public class JacksonEncoderPerf {
             ))
             .collect(Collectors.toList());
 
-    final static ObjectMapper objectMapper = new ObjectMapper();
+    private final static ObjectMapper objectMapper = new ObjectMapper();
 
     public static void main(String[] args) throws JsonProcessingException {
         var  start = System.currentTimeMillis();
