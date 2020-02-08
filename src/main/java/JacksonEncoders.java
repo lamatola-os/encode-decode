@@ -6,6 +6,8 @@ import data.Order;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class JacksonEncoders {
 
@@ -18,17 +20,19 @@ public class JacksonEncoders {
         var encoded = encoder.writeValueAsString(new Customer(
                 "upd",
                 "LUYATA",
-                LocalDate.now()
+                LocalDate.now(),
+                LocalDateTime.now(),
+                LocalTime.now()
         ));
 
         System.out.println(encoded);
 
         var jsonJust = "{\"order\":{\"status\":\"delivered\",\"statusDate\":\"2019-07-02\"}}";
         var deccoded = encoder.readValue(jsonJust, Order.class);
-        System.out.println(deccoded.order.map(a -> a.status));
+        System.out.println(deccoded.getOrder().map(a -> a.getStatus()));
 
         var jsonNothing = "{\"order\": {}}";
         var decoded2 = encoder.readValue(jsonNothing, Order.class);
-        System.out.println(decoded2.order.map($ -> $.status));
+        System.out.println(decoded2.getOrder().map($ -> $.getStatus()));
     }
 }

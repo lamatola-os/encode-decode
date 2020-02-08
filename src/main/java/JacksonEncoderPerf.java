@@ -3,6 +3,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Customer;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -19,7 +21,9 @@ public class JacksonEncoderPerf {
             .mapToObj($ -> new Customer(
                     "upd",
                     "LUYATA",
-                    LocalDate.now()
+                    LocalDate.now(),
+                    LocalDateTime.now(),
+                    LocalTime.now()
             ))
             .collect(Collectors.toList());
 

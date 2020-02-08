@@ -21,7 +21,7 @@ public class WeirdStoreEncoderDecoder {
      *   "bajhang store": {
      *     "properties": {
      *       "tags": [
-     *         "store"
+     *         "store", "love"
      *       ],
      *       "address": "yata"
      *     }
