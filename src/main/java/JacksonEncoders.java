@@ -17,26 +17,27 @@ public class JacksonEncoders {
             .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 
     public static void main(String[] args) throws IOException {
-        var encoded = encoder.writeValueAsString(new Customer(
+        var encodedCustomerJson = encoder.writeValueAsString(new Customer(
                 "upd",
                 "LUYATA",
                 LocalDateTime.now(),
                 ZonedDateTime.now(ZoneId.of("America/Los_Angeles")),
                 LocalDate.now(),
-                LocalTime.now()
+                LocalTime.now(),
+                ZoneId.of("America/Los_Angeles")
         ));
-        System.out.println(encoded);
+        System.out.println(encodedCustomerJson);
 
         //
-        var decodedObj = encoder.readValue(encoded, Customer.class);
-        System.out.println("decoded object: " + decodedObj);
+        var decodedObj = encoder.readValue(encodedCustomerJson, Customer.class);
+        System.out.println("\ndecoded customer object: \n" + decodedObj);
 
         var jsonJust = "{\"order\":{\"status\":\"delivered\",\"statusDate\":\"2019-07-02\"}}";
         var decoded = encoder.readValue(jsonJust, Order.class);
-        System.out.println(decoded.getOrder().map(a -> a.getStatus()));
+        System.out.println("decoded status: " + decoded.getOrder().map(a -> a.getStatus()));
 
         var jsonNothing = "{\"order\": {}}";
         var decoded2 = encoder.readValue(jsonNothing, Order.class);
-        System.out.println(decoded2.getOrder().map($ -> $.getStatus()));
+        System.out.println("decoded status: " + decoded2.getOrder().map($ -> $.getStatus()));
     }
 }
