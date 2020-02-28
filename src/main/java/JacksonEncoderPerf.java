@@ -2,9 +2,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Customer;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,8 +19,9 @@ public class JacksonEncoderPerf {
             .mapToObj($ -> new Customer(
                     "upd",
                     "LUYATA",
-                    LocalDate.now(),
                     LocalDateTime.now(),
+                    ZonedDateTime.now(ZoneId.of("America/Los_Angeles")),
+                    LocalDate.now(),
                     LocalTime.now()
             ))
             .collect(Collectors.toList());

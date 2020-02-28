@@ -45,3 +45,9 @@ true
 true
 false
 ```
+
+
+Note
+-----
+
+- install https://github.com/mplushnikov/lombok-intellij-plugin for idea 2019.3.+
