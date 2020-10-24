@@ -22,7 +22,8 @@ public class JacksonEncoderPerf {
                     LocalDateTime.now(),
                     ZonedDateTime.now(ZoneId.of("America/Los_Angeles")),
                     LocalDate.now(),
-                    LocalTime.now()
+                    LocalTime.now(),
+                    ZoneId.of("America/Los_Angeles")
             ))
             .collect(Collectors.toList());
 

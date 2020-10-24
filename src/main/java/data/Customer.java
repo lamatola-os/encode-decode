@@ -17,10 +17,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import java.time.*;
+
+/**
+ * {
+ *   "name": "upd",
+ *   "address": "LUYATA",
+ *   "createdDateTime": "2020-02-27 18:55:47",
+ *   "createdZonedDateTime": "2020-02-27 18:55:47.952480-08",
+ *   "createdDate": "2020-02-27",
+ *   "createdTime": "06:55:47 PM",
+ *   "timeZone": "America/Los_Angeles"
+ * }
+ */
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -47,4 +56,6 @@ public class Customer {
     @JsonDeserialize(using = LocalTimeDeserializer.class)
     @JsonSerialize(using = LocalTimeSerializer.class)
     private LocalTime createdTime;
+
+    private ZoneId timeZone;
 }
