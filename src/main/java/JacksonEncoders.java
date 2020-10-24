@@ -1,20 +1,37 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import data.Customer;
 import data.Order;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.time.*;
+import java.util.List;
 
 public class JacksonEncoders {
 
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    static class A {
+        private String a;
+    }
+
+    private final static TypeReference<List<A>> AS_TYPE = new TypeReference<>() {
+    };
+
     private static ObjectMapper encoder =
             new ObjectMapper()
-            .registerModule(new Jdk8Module())
-            .registerModule(new JavaTimeModule())
-            .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
+                    .registerModule(new Jdk8Module())
+                    .registerModule(new JavaTimeModule())
+                    .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 
     public static void main(String[] args) throws IOException {
         var encoded = encoder.writeValueAsString(new Customer(
@@ -38,5 +55,11 @@ public class JacksonEncoders {
         var jsonNothing = "{\"order\": {}}";
         var decoded2 = encoder.readValue(jsonNothing, Order.class);
         System.out.println(decoded2.getOrder().map($ -> $.getStatus()));
+
+        List<A> list = encoder.readValue("[]", AS_TYPE);
+        System.out.println(list);
+
+        A a = encoder.readValue("{\"a\": \"paraya\"}", A.class);
+        System.out.println(a);
     }
 }
