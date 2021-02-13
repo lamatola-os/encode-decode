@@ -26,7 +26,7 @@ public class JsonOrder {
         System.out.println("------");
         System.out.println(orderedEn.equals(randomEn));
 
-        //
+        //JSONObject is super random
         var json1 = new JSONObject(json);
         System.out.println(json1.toString());
 
