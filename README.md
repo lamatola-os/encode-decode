@@ -47,6 +47,16 @@ false
 ```
 
 
+proto
+--
+
+```bash
+brew install protobuf
+brew upgrade protobuf
+
+protoc src/main/resources/sku.proto --java_out=src/main/java/data/
+```
+
 Note
 -----
 
