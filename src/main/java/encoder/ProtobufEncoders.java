@@ -1,3 +1,7 @@
+package encoder;
+
+import data.SkuOuterClass;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

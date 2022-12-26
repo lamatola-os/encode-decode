@@ -1,3 +1,5 @@
+package encoder;
+
 import org.json.JSONObject;
 
 public class JsonOrgEncoder {

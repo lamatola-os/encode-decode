@@ -1,13 +1,15 @@
 encode / decode
 ---------------------
 
-| library   |  link                                |
-|-----------|--------------------------------------|
-| jackson |  https://github.com/FasterXML/jackson |
-| circe | https://circe.github.io/circe/ |
-| argonaut | https://github.com/argonaut-io/argonaut |
+| library       |  link                                |
+|---------------|--------------------------------------|
+| jackson       |  https://github.com/FasterXML/jackson |
+| protobuf      |  https://developers.google.com/protocol-buffers |
+| Thirft        |  https://thrift.apache.org/ |
+| circe         | https://circe.github.io/circe/ |
+| argonaut      | https://github.com/argonaut-io/argonaut |
 | play.json lib |  https://www.playframework.com/documentation/2.6.x/ScalaJson |
-| json4s | https://github.com/json4s/json4s |
+| json4s        | https://github.com/json4s/json4s |
 
 
 
