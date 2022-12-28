@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
  */
 public class JacksonEncoderPerf {
 
-    final static List<Customer> orders = IntStream.range(1, 100000)
+    final static List<Customer> orders = IntStream.range(1, 1000)
             .mapToObj($ -> new Customer(
                     "upd",
                     "LUYATA",
@@ -32,9 +32,37 @@ public class JacksonEncoderPerf {
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     public static void main(String[] args) throws JsonProcessingException {
+        timedSingleObject_();
+    }
+
+    /**
+     * 1240 ms
+     */
+    private static void timedSingleObject() throws JsonProcessingException {
         var  start = System.currentTimeMillis();
 
         var encoded = objectMapper.writeValueAsString(orders);
+        System.out.println("took: " + (System.currentTimeMillis() - start) + " ms");
+
+        //System.out.println(encoded);
+    }
+
+    /**
+     * 142 ms
+     */
+    private static void timedSingleObject_() throws JsonProcessingException {
+        var cust = new Customer(
+                "upd",
+                "LUYATA",
+                LocalDateTime.now(),
+                ZonedDateTime.now(ZoneId.of("America/Los_Angeles")),
+                LocalDate.now(),
+                LocalTime.now(),
+                ZoneId.of("America/Los_Angeles")
+        );
+        var start = System.currentTimeMillis();
+
+        var encoded = objectMapper.writeValueAsString(cust);
         System.out.println("took: " + (System.currentTimeMillis() - start) + " ms");
 
         //System.out.println(encoded);
