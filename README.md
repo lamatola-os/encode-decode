@@ -6,6 +6,7 @@ encode / decode
 | jackson       |  https://github.com/FasterXML/jackson |
 | protobuf      |  https://developers.google.com/protocol-buffers |
 | Thirft        |  https://thrift.apache.org/ |
+| Avro          | https://github.com/prayagupa/avro-in-makwanpur |
 | circe         | https://circe.github.io/circe/ |
 | argonaut      | https://github.com/argonaut-io/argonaut |
 | play.json lib |  https://www.playframework.com/documentation/2.6.x/ScalaJson |
